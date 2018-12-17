@@ -45,25 +45,12 @@ $(document).ready(function () {
         success: function (apiData) {
           $('#inputRicerca').val('');
           console.log('Hai cercato risultati per: ' + apiParameters.data.query);
+          console.log(apiData.results);
 
           $('#lista_film .film').remove();
 
-          for (var i = 0; i < apiData.results.length; i++) {
+          mostraListaFilmDa(apiData);
 
-            var htmlTemplateFilm = $('#filmScript').html();
-            var template = Handlebars.compile(htmlTemplateFilm);
-
-            var data = {
-              titolo: apiData.results[i].title,
-              titoloOriginale: apiData.results[i].original_title,
-              lingua: apiData.results[i].original_language,
-              voto: apiData.results[i].vote_average,
-            };
-
-            var htmlRisultato = template(data);
-            $('#lista_film').append(htmlRisultato);
-
-          }
         },
         error: function (error) {
           console.log('Error retrieving data');
@@ -77,3 +64,47 @@ $(document).ready(function () {
 /**********************************/
 /*************FUNZIONI*************/
 /**********************************/
+
+function mostraListaFilmDa(apiData) {
+
+  for (var i = 0; i < apiData.results.length; i++) {
+    var voto = convertiInScalaDa1a5(apiData.results[i].vote_average);
+
+    var htmlTemplateFilm = $('#filmScript').html();
+    var template = Handlebars.compile(htmlTemplateFilm);
+
+    var data = {
+      titolo: apiData.results[i].title,
+      titoloOriginale: apiData.results[i].original_title,
+      lingua: apiData.results[i].original_language,
+      voto: (voto != 'nd') ? '' : 'nd',
+    };
+    var htmlRisultato = template(data);
+
+    $('#lista_film').append(htmlRisultato);
+
+    //gestisco stelle se voto non è nd
+    gestisciStellePerFilmA(i, voto)
+
+  }
+}
+
+function gestisciStellePerFilmA(indice, voto) {
+  var indiceFilm = indice + 1;
+  var stelle = $('#lista_film').children().eq(indiceFilm).find('.score').children('i.fa-star');
+
+  if (voto != 'nd') {
+    for (var starIndex = 0; starIndex < 5; starIndex++) {
+      if (starIndex < voto) {
+        var stella = stelle.eq(starIndex);
+        stella.addClass('fas').removeClass('far');
+      }
+    }
+  } else {
+    stelle.addClass('hidden');
+  }
+}
+
+function convertiInScalaDa1a5(voto) {
+  return (voto != 0) ? Math.ceil(voto / 2) : 'nd';
+}

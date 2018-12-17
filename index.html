@@ -19,11 +19,19 @@
     <div class="content">
       <ul id="lista_film">
         <script id="filmScript" type="text/x-handlebars-template">
-          <li class="film_title">Titolo: {{ titolo }} </li>
-          <ul class="film_others">
-            <li>titolo originale:  {{ titoloOriginale }} </li>
-            <li>lingua: {{ lingua }} </li>
-            <li>voto: {{ voto }} </li>
+          <ul class="film">
+            <li class="film_title">Titolo: {{ titolo }} </li>
+            <ul class="film_others">
+              <li>titolo originale:  {{ titoloOriginale }} </li>
+              <li>lingua: {{ lingua }} </li>
+              <li class="score"> {{ voto }}
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </li>
+            </ul>
           </ul>
         </script>
       </ul>
