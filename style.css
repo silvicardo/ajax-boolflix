@@ -34,11 +34,12 @@
 /**********************************************/
 
 body {
-
+  background: black;
 }
 
 #main-container {
-
+  width: 100vw;
+  
 }
 
 /* navBar */
