@@ -39,13 +39,36 @@ body {
 
 #main-container {
   width: 100vw;
-  
+  height: 100vh;
 }
 
 /* navBar */
 
 nav {
+  height: 100px;
+  width: 100vw;
+  line-height: 100px;
+  padding-left: 50px;
+  border-bottom: 1px solid grey;
+}
 
+nav #inputRicerca, nav #inputRicerca:focus {
+  margin-right: 15px;
+  padding: 0px 15px;
+  height: 40px;
+  width: 200px;
+  border-radius: 6px;
+  border-style: none;
+  outline-style: none;
+}
+
+nav #bottoneCerca {
+  height: 40px;
+  padding: 0px 10px;
+  background: green;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
 }
 
 /* content */

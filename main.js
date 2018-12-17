@@ -18,8 +18,6 @@ Required params: api-key, query(String)
 $(document).ready(function () {
   console.log('welcome to ajax-BoolFlix');
 
-  var stringaRicercata = 'Fantozzi';
-
   var lingue = [
                 { nome: 'Italiano', codice: 'it-IT' },
                 { nome: 'Inglese', codice: 'en-US' },
@@ -30,20 +28,32 @@ $(document).ready(function () {
     data: {
       api_key: 'e84c7d2ede59ead3397581c0ad7d4dec',
       language: lingue[0].codice,
-      query: stringaRicercata,
+      query: '',
     },
   };
 
-  $.ajax({
-    url: apiParameters.urlBase,
-    method: 'GET',
-    data: apiParameters.data,
-    success: function (apiData) {
-      console.log(apiData.results);
-    },
-    error: function(error){
-      console.log('Error retrieving data');
-    },
+  $('#bottoneCerca').click(function () {
+
+    if ($('#inputRicerca').val() != '') {
+
+      apiParameters.data.query = $('#inputRicerca').val();
+
+      $.ajax({
+        url: apiParameters.urlBase,
+        method: 'GET',
+        data: apiParameters.data,
+        success: function (apiData) {
+          $('#inputRicerca').val('');
+          console.log('Hai cercato risultati per: ' + apiParameters.data.query);
+          for (var i = 0; i < apiData.results.length; i++) {
+            console.log(apiData.results[i].title);
+          }
+        },
+        error: function (error) {
+          console.log('Error retrieving data');
+        },
+      });
+    }
   });
 
 });
