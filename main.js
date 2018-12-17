@@ -45,8 +45,21 @@ $(document).ready(function () {
         success: function (apiData) {
           $('#inputRicerca').val('');
           console.log('Hai cercato risultati per: ' + apiParameters.data.query);
+
+          $('#lista_film .film').remove();
+
           for (var i = 0; i < apiData.results.length; i++) {
-            console.log(apiData.results[i].title);
+
+            var htmlTemplateFilm = $('#filmScript').html();
+            var template = Handlebars.compile(htmlTemplateFilm);
+
+            var data = {
+              titolo: apiData.results[i].title,
+            };
+
+            var htmlRisultato = template(data);
+            $('#lista_film').append(htmlRisultato);
+
           }
         },
         error: function (error) {

@@ -39,7 +39,6 @@ body {
 
 #main-container {
   width: 100vw;
-  height: 100vh;
 }
 
 /* navBar */
@@ -73,6 +72,16 @@ nav #bottoneCerca {
 
 /* content */
 
-.content {
+.content, .content #lista_film {
+  width: 100%;
+}
 
+.content #lista_film {
+  margin-top: 30px;
+  margin-left: 70px;
+}
+
+.content #lista_film .film {
+  color: white;
+  margin-bottom: 5px;
 }
