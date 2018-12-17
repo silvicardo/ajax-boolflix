@@ -81,7 +81,11 @@ nav #bottoneCerca {
   margin-left: 70px;
 }
 
-.content #lista_film .film {
+.content #lista_film .film_title, .content #lista_film .film_others li {
   color: white;
   margin-bottom: 5px;
+}
+
+.content #lista_film .film_others li {
+  margin-left: 20px;
 }

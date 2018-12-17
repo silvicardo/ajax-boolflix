@@ -55,6 +55,9 @@ $(document).ready(function () {
 
             var data = {
               titolo: apiData.results[i].title,
+              titoloOriginale: apiData.results[i].original_title,
+              lingua: apiData.results[i].original_language,
+              voto: apiData.results[i].vote_average,
             };
 
             var htmlRisultato = template(data);

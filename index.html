@@ -19,7 +19,12 @@
     <div class="content">
       <ul id="lista_film">
         <script id="filmScript" type="text/x-handlebars-template">
-          <li class="film"> {{ titolo }}</li>
+          <li class="film_title">Titolo: {{ titolo }} </li>
+          <ul class="film_others">
+            <li>titolo originale:  {{ titoloOriginale }} </li>
+            <li>lingua: {{ lingua }} </li>
+            <li>voto: {{ voto }} </li>
+          </ul>
         </script>
       </ul>
     </div>
