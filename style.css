@@ -55,7 +55,7 @@ nav #inputRicerca, nav #inputRicerca:focus {
   margin-right: 15px;
   padding: 0px 15px;
   height: 40px;
-  width: 200px;
+  width: 400px;
   border-radius: 6px;
   border-style: none;
   outline-style: none;
@@ -72,20 +72,20 @@ nav #bottoneCerca {
 
 /* content */
 
-.content, .content #lista_film {
+.contenuti, .contenuti #lista_contenuti {
   width: 100%;
 }
 
-.content #lista_film {
+.contenuti #lista_contenuti {
   margin-top: 30px;
   margin-left: 70px;
 }
 
-.content #lista_film .film_title, .content #lista_film .film_others li {
+.contenuti #lista_contenuti .titolo_contenuto, .contenuti #lista_contenuti .altre_contenuto li {
   color: white;
   margin-bottom: 5px;
 }
 
-.content #lista_film .film_others li {
+.contenuti #lista_contenuti .altre_contenuto li {
   margin-left: 20px;
 }

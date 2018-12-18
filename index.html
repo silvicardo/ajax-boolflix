@@ -12,19 +12,20 @@
   <div id="main-container">
 
     <nav>
-      <input id="inputRicerca" type="text" name="" value="" placeholder="Digita il nome del film cercato">
+      <input id="inputRicerca" type="text" name="" value="" placeholder="Digita il nome del contenuto cercato">
       <button id="bottoneCerca" type="button" name="button">Cerca</button>
     </nav>
 
-    <div class="content">
-      <ul id="lista_film">
-        <script id="filmScript" type="text/x-handlebars-template">
-          <ul class="film">
-            <li class="film_title">Titolo: {{ titolo }} </li>
-            <ul class="film_others">
+    <div class="contenuti">
+      <ul id="lista_contenuti">
+        <script id="contenutoScript" type="text/x-handlebars-template">
+          <ul class="contenuto">
+            <li class="titolo_contenuto">Titolo: {{ titolo }} </li>
+            <ul class="altre_contenuto">
               <li>titolo originale:  {{ titoloOriginale }} </li>
+              <li>tipologia contenuto: {{ tipologiaContenuto}}</li>
               <li>lingua: {{ lingua }} </li>
-              <li class="score"> {{ voto }}
+              <li class="punteggio"> {{ voto }}
                 <i class="far fa-star"></i>
                 <i class="far fa-star"></i>
                 <i class="far fa-star"></i>

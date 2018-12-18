@@ -24,7 +24,7 @@ $(document).ready(function () {
                 ];
 
   var apiParameters = {
-    urlBase: 'https://api.themoviedb.org/3/search/movie',
+    urlBase: 'https://api.themoviedb.org/3/search/multi',
     data: {
       api_key: 'e84c7d2ede59ead3397581c0ad7d4dec',
       language: lingue[0].codice,
@@ -47,9 +47,9 @@ $(document).ready(function () {
           console.log('Hai cercato risultati per: ' + apiParameters.data.query);
           console.log(apiData.results);
 
-          $('#lista_film .film').remove();
+          $('#lista_contenuti .contenuto').remove();
 
-          mostraListaFilmDa(apiData);
+          mostraFilmESerieTVda(apiData);
 
         },
         error: function (error) {
@@ -65,33 +65,43 @@ $(document).ready(function () {
 /*************FUNZIONI*************/
 /**********************************/
 
-function mostraListaFilmDa(apiData) {
+function mostraFilmESerieTVda(apiData){
+
+  function isMovie(mediaType) {
+    return mediaType == 'movie';
+  }
 
   for (var i = 0; i < apiData.results.length; i++) {
-    var voto = convertiInScalaDa1a5(apiData.results[i].vote_average);
 
-    var htmlTemplateFilm = $('#filmScript').html();
-    var template = Handlebars.compile(htmlTemplateFilm);
+    var tipoContenuto = apiData.results[i].media_type;
 
-    var data = {
-      titolo: apiData.results[i].title,
-      titoloOriginale: apiData.results[i].original_title,
-      lingua: apiData.results[i].original_language,
-      voto: (voto != 'nd') ? '' : 'nd',
-    };
-    var htmlRisultato = template(data);
+    if (tipoContenuto == 'movie' || tipoContenuto == 'tv') {
+      var voto = convertiInScalaDa1a5(apiData.results[i].vote_average);
 
-    $('#lista_film').append(htmlRisultato);
+      var htmlTemplateContenuto = $('#contenutoScript').html();
+      var template = Handlebars.compile(htmlTemplateContenuto);
 
-    //gestisco stelle se voto non è nd
-    gestisciStellePerFilmA(i, voto)
+      var data = {
+        titolo:(isMovie())? apiData.results[i].title : apiData.results[i].name,
+        titoloOriginale: (isMovie())? apiData.results[i].original_title : apiData.results[i].original_name,
+        lingua: apiData.results[i].original_language,
+        voto: (voto != 'nd') ? '' : 'nd',
+        tipologiaContenuto: tipoContenuto,
+      };
+      var htmlRisultato = template(data);
+
+      $('#lista_contenuti').append(htmlRisultato);
+
+      //gestisco stelle se voto non è nd
+      gestisciStellePerContenutoA(i, voto);
+    }
 
   }
 }
 
-function gestisciStellePerFilmA(indice, voto) {
+function gestisciStellePerContenutoA(indice, voto) {
   var indiceFilm = indice + 1;
-  var stelle = $('#lista_film').children().eq(indiceFilm).find('.score').children('i.fa-star');
+  var stelle = $('#lista_contenuti').children().eq(indiceFilm).find('.punteggio').children('i.fa-star');
 
   if (voto != 'nd') {
     for (var starIndex = 0; starIndex < 5; starIndex++) {
