@@ -9,6 +9,42 @@ themoviedb- API
 API KEY : e84c7d2ede59ead3397581c0ad7d4dec
 TEST URL : https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
 Required params: api-key, query(String)
+"backdrop_sizes": [
+  "w300",
+  "w780",
+  "w1280",
+  "original"
+],
+"logo_sizes": [
+  "w45",
+  "w92",
+  "w154",
+  "w185",
+  "w300",
+  "w500",
+  "original"
+],
+"poster_sizes": [
+  "w92",
+  "w154",
+  "w185",
+  "w342",
+  "w500",
+  "w780",
+  "original"
+],
+"profile_sizes": [
+  "w45",
+  "w185",
+  "h632",
+  "original"
+],
+"still_sizes": [
+  "w92",
+  "w185",
+  "w300",
+  "original"
+]
 */
 
 /*****************************/
@@ -83,8 +119,8 @@ function mostraFilmESerieTVda(apiData){
       var template = Handlebars.compile(htmlTemplateContenuto);
 
       var data = {
-        titolo:(isMovie(tipoContenuto))? apiData.results[i].title : apiData.results[i].name,
-        titoloOriginale: (isMovie(tipoContenuto))? apiData.results[i].original_title : apiData.results[i].original_name,
+        titolo:(isMovie(tipoContenuto)) ? apiData.results[i].title : apiData.results[i].name,
+        titoloOriginale: (isMovie(tipoContenuto)) ? apiData.results[i].original_title : apiData.results[i].original_name,
         lingua: apiData.results[i].original_language,
         voto: (voto != 'nd') ? '' : 'nd',
         tipologiaContenuto: tipoContenuto,
@@ -93,11 +129,27 @@ function mostraFilmESerieTVda(apiData){
 
       $('#lista_contenuti').append(htmlRisultato);
 
+      gestisciCopertinaPerContenutoAd(i, apiData.results[i].backdrop_path);
+
       //gestisco stelle se voto non è nd
       gestisciStellePerContenutoA(i, voto);
     }
 
   }
+}
+
+function gestisciCopertinaPerContenutoAd(indice, backdropPath) {
+  var indiceFilm = indice + 1;
+  var copertina = $('#lista_contenuti').children().eq(indiceFilm).find('.copertina_contenuto').children('img');
+
+  if (backdropPath != null) {
+    urlCopertina = 'https://image.tmdb.org/t/p/w300' + backdropPath;
+
+    copertina.attr('src', urlCopertina);
+  } else {
+    $('#lista_contenuti').children().eq(indiceFilm).find('.copertina_contenuto').text('Copertina non disponibile');
+  }
+
 }
 
 function gestisciStellePerContenutoA(indice, voto) {
