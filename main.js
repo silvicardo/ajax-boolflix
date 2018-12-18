@@ -77,13 +77,14 @@ function mostraFilmESerieTVda(apiData){
 
     if (tipoContenuto == 'movie' || tipoContenuto == 'tv') {
       var voto = convertiInScalaDa1a5(apiData.results[i].vote_average);
+      console.log(isMovie(tipoContenuto));
 
       var htmlTemplateContenuto = $('#contenutoScript').html();
       var template = Handlebars.compile(htmlTemplateContenuto);
 
       var data = {
-        titolo:(isMovie())? apiData.results[i].title : apiData.results[i].name,
-        titoloOriginale: (isMovie())? apiData.results[i].original_title : apiData.results[i].original_name,
+        titolo:(isMovie(tipoContenuto))? apiData.results[i].title : apiData.results[i].name,
+        titoloOriginale: (isMovie(tipoContenuto))? apiData.results[i].original_title : apiData.results[i].original_name,
         lingua: apiData.results[i].original_language,
         voto: (voto != 'nd') ? '' : 'nd',
         tipologiaContenuto: tipoContenuto,
