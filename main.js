@@ -107,6 +107,10 @@ function mostraFilmESerieTVda(apiData) {
     return mediaType == 'movie';
   }
 
+  function hasCover(content) {
+    return (content.backdrop_path != null || content.poster_path != null );
+  }
+
   for (var i = 0; i < apiData.results.length; i++) {
 
     var tipoContenuto = apiData.results[i].media_type;
@@ -124,13 +128,8 @@ function mostraFilmESerieTVda(apiData) {
         lingua: apiData.results[i].original_language,
         votazione: (voto != 'nd') ? gestisci(voto, apiData.results[i]) : 'nd',
         tipologiaContenuto: tipoContenuto,
+        copertina : (hasCover(apiData.results[i])) ? gestisciCopertinaPer(apiData.results[i]) : 'Nessuna copertina disponibile',
       };
-
-      if (apiData.results[i].backdrop_path != null || apiData.results[i].poster_path != null ) {
-        data.copertina = gestisciCopertinaPerContenutoAd(apiData.results[i]);
-      } else {
-        data.copertina = 'Nessuna copertina disponibile';
-      }
 
       var htmlRisultato = template(data);
 
@@ -151,11 +150,11 @@ function gestisci(voto, contenuto) {
   return tagVoto;
 }
 
-function gestisciCopertinaPerContenutoAd(contenuto) {
+function gestisciCopertinaPer(contenuto) {
 
   var path = (contenuto.backdrop_path != null) ? contenuto.backdrop_path : contenuto.poster_path;
   var dimensione = (contenuto.backdrop_path != null) ? 'w300' : 'w342';
-  var urlCopertina = 'https://image.tmdb.org/t/p/' + dimensione + pathCopertina;
+  var urlCopertina = 'https://image.tmdb.org/t/p/' + dimensione + path;
 
   return "<img src='" + urlCopertina + "' />'";
 }
