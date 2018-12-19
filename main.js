@@ -101,7 +101,7 @@ $(document).ready(function () {
 /*************FUNZIONI*************/
 /**********************************/
 
-function mostraFilmESerieTVda(apiData){
+function mostraFilmESerieTVda(apiData) {
 
   function isMovie(mediaType) {
     return mediaType == 'movie';
@@ -113,59 +113,51 @@ function mostraFilmESerieTVda(apiData){
 
     if (tipoContenuto == 'movie' || tipoContenuto == 'tv') {
       var voto = convertiInScalaDa1a5(apiData.results[i].vote_average);
-      console.log(isMovie(tipoContenuto));
+      console.log(voto);
 
       var htmlTemplateContenuto = $('#contenutoScript').html();
       var template = Handlebars.compile(htmlTemplateContenuto);
 
       var data = {
-        titolo:(isMovie(tipoContenuto)) ? apiData.results[i].title : apiData.results[i].name,
+        titolo: (isMovie(tipoContenuto)) ? apiData.results[i].title : apiData.results[i].name,
         titoloOriginale: (isMovie(tipoContenuto)) ? apiData.results[i].original_title : apiData.results[i].original_name,
         lingua: apiData.results[i].original_language,
-        voto: (voto != 'nd') ? '' : 'nd',
+        votazione: (voto != 'nd') ? gestisci(voto, apiData.results[i]) : 'nd',
         tipologiaContenuto: tipoContenuto,
       };
+
+      if (apiData.results[i].backdrop_path != null || apiData.results[i].poster_path != null ) {
+        data.copertina = gestisciCopertinaPerContenutoAd(apiData.results[i]);
+      } else {
+        data.copertina = 'Nessuna copertina disponibile';
+      }
+
       var htmlRisultato = template(data);
 
       $('#lista_contenuti').append(htmlRisultato);
-
-      gestisciCopertinaPerContenutoAd(i, apiData.results[i].backdrop_path);
-
-      //gestisco stelle se voto non è nd
-      gestisciStellePerContenutoA(i, voto);
     }
 
   }
 }
 
-function gestisciCopertinaPerContenutoAd(indice, backdropPath) {
-  var indiceFilm = indice + 1;
-  var copertina = $('#lista_contenuti').children().eq(indiceFilm).find('.copertina_contenuto').children('img');
+function gestisci(voto, contenuto) {
 
-  if (backdropPath != null) {
-    urlCopertina = 'https://image.tmdb.org/t/p/w300' + backdropPath;
+  var tagVoto = '';
 
-    copertina.attr('src', urlCopertina);
-  } else {
-    $('#lista_contenuti').children().eq(indiceFilm).find('.copertina_contenuto').text('Copertina non disponibile');
+  for (var i = 1; i <= 5; i++) {
+    tagVoto += (i <= voto) ? "<i class='fas fa-star'></i>" : "<i class='far fa-star'></i>";
   }
 
+  return tagVoto;
 }
 
-function gestisciStellePerContenutoA(indice, voto) {
-  var indiceFilm = indice + 1;
-  var stelle = $('#lista_contenuti').children().eq(indiceFilm).find('.punteggio').children('i.fa-star');
+function gestisciCopertinaPerContenutoAd(contenuto) {
 
-  if (voto != 'nd') {
-    for (var starIndex = 0; starIndex < 5; starIndex++) {
-      if (starIndex < voto) {
-        var stella = stelle.eq(starIndex);
-        stella.addClass('fas').removeClass('far');
-      }
-    }
-  } else {
-    stelle.addClass('hidden');
-  }
+  var path = (contenuto.backdrop_path != null) ? contenuto.backdrop_path : contenuto.poster_path;
+  var dimensione = (contenuto.backdrop_path != null) ? 'w300' : 'w342';
+  var urlCopertina = 'https://image.tmdb.org/t/p/' + dimensione + pathCopertina;
+
+  return "<img src='" + urlCopertina + "' />'";
 }
 
 function convertiInScalaDa1a5(voto) {

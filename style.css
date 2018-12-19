@@ -25,6 +25,14 @@
   display: none;
 }
 
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 /************************************************/
 /************* OGGETTI RICORRENTI ***************/
 /************************************************/
@@ -81,7 +89,7 @@ nav #bottoneCerca {
   margin-left: 70px;
 }
 
-.contenuti #lista_contenuti .titolo_contenuto, .contenuti #lista_contenuti .altre_contenuto li {
+.contenuti #lista_contenuti *, .contenuti #lista_contenuti .altre_contenuto li {
   color: white;
   margin-bottom: 5px;
 }

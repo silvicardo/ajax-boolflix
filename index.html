@@ -16,23 +16,19 @@
       <button id="bottoneCerca" type="button" name="button">Cerca</button>
     </nav>
 
+
+
     <div class="contenuti">
       <ul id="lista_contenuti">
         <script id="contenutoScript" type="text/x-handlebars-template">
           <ul class="contenuto">
             <li class="titolo_contenuto">Titolo: {{ titolo }} </li>
-            <li class="copertina_contenuto"><img src="" alt=""></li>
+            <li class="copertina_contenuto">{{{ copertina }}}</li>
             <ul class="altre_contenuto">
               <li>titolo originale:  {{ titoloOriginale }} </li>
               <li>tipologia contenuto: {{ tipologiaContenuto}}</li>
               <li>lingua: {{ lingua }} </li>
-              <li class="punteggio"> {{ voto }}
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-              </li>
+              <li class="punteggio"> {{{ votazione }}}</li>
             </ul>
           </ul>
         </script>
