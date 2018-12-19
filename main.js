@@ -51,19 +51,17 @@ Required params: api-key, query(String)
 /******** PROGRAMMA **********/
 /*****************************/
 
+var paesiSupportati = ['it', 'en'];
+
 $(document).ready(function () {
   console.log('welcome to ajax-BoolFlix');
 
-  var lingue = [
-                { nome: 'Italiano', codice: 'it-IT' },
-                { nome: 'Inglese', codice: 'en-US' },
-                ];
+
 
   var apiParameters = {
     urlBase: 'https://api.themoviedb.org/3/search/multi',
     data: {
       api_key: 'e84c7d2ede59ead3397581c0ad7d4dec',
-      language: lingue[0].codice,
       query: '',
     },
   };
@@ -116,19 +114,22 @@ function mostraFilmESerieTVda(apiData) {
     var tipoContenuto = apiData.results[i].media_type;
 
     if (tipoContenuto == 'movie' || tipoContenuto == 'tv') {
-      var voto = convertiInScalaDa1a5(apiData.results[i].vote_average);
+
+      var contenuto = apiData.results[i];
+
+      var voto = convertiInScalaDa1a5(contenuto.vote_average);
       console.log(voto);
 
       var htmlTemplateContenuto = $('#contenutoScript').html();
       var template = Handlebars.compile(htmlTemplateContenuto);
 
       var data = {
-        titolo: (isMovie(tipoContenuto)) ? apiData.results[i].title : apiData.results[i].name,
-        titoloOriginale: (isMovie(tipoContenuto)) ? apiData.results[i].original_title : apiData.results[i].original_name,
-        lingua: apiData.results[i].original_language,
-        votazione: (voto != 'nd') ? gestisci(voto, apiData.results[i]) : 'nd',
+        titolo: (isMovie(tipoContenuto)) ? contenuto.title : contenuto.name,
+        titoloOriginale: (isMovie(tipoContenuto)) ? contenuto.original_title : contenuto.original_name,
+        lingua: gestisciLingua(contenuto.original_language),
+        votazione: (voto != 'nd') ? gestisci(voto, contenuto) : 'nd',
         tipologiaContenuto: tipoContenuto,
-        copertina : (hasCover(apiData.results[i])) ? gestisciCopertinaPer(apiData.results[i]) : 'Nessuna copertina disponibile',
+        copertina : (hasCover(contenuto)) ? gestisciCopertinaPer(contenuto) : 'Nessuna copertina disponibile',
       };
 
       var htmlRisultato = template(data);
@@ -137,6 +138,20 @@ function mostraFilmESerieTVda(apiData) {
     }
 
   }
+}
+
+function gestisciLingua(lingua) {
+    var htmlOutput = '';
+
+    if (paesiSupportati.includes(lingua)) {
+      console.log(lingua + ' lingua supportata');
+      htmlOutput = "<img class='bandiera' src='" + lingua + ".png' />";
+    } else {
+      htmlOutput = lingua + ' non supportata';
+    }
+
+    return htmlOutput;
+
 }
 
 function gestisci(voto, contenuto) {

@@ -12,11 +12,12 @@
   <div id="main-container">
 
     <nav>
-      <input id="inputRicerca" type="text" name="" value="" placeholder="Digita il nome del contenuto cercato">
-      <button id="bottoneCerca" type="button" name="button">Cerca</button>
+      <img class="logo" src="logo.png" alt="">
+      <div class="search_area">
+        <input id="inputRicerca" type="text" name="" value="" placeholder="Digita il nome del contenuto cercato">
+        <button id="bottoneCerca" type="button" name="button">Cerca</button>
+      </div>
     </nav>
-
-
 
     <div class="contenuti">
       <ul id="lista_contenuti">
@@ -27,7 +28,7 @@
             <ul class="altre_contenuto">
               <li>titolo originale:  {{ titoloOriginale }} </li>
               <li>tipologia contenuto: {{ tipologiaContenuto}}</li>
-              <li>lingua: {{ lingua }} </li>
+              <li>lingua: {{{ lingua }}} </li>
               <li class="punteggio"> {{{ votazione }}}</li>
             </ul>
           </ul>
