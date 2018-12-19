@@ -20,22 +20,21 @@
     </nav>
 
     <div class="contenuti">
-      <ul id="lista_contenuti">
-        <script id="contenutoScript" type="text/x-handlebars-template">
-          <ul class="contenuto">
-            <li class="titolo_contenuto">Titolo: {{ titolo }} </li>
-            <li class="copertina_contenuto">{{{ copertina }}}</li>
-            <ul class="altre_contenuto">
-              <li>titolo originale:  {{ titoloOriginale }} </li>
-              <li>tipologia contenuto: {{ tipologiaContenuto}}</li>
-              <li>lingua: {{{ lingua }}} </li>
-              <li class="punteggio"> {{{ votazione }}}</li>
-            </ul>
+      <script id="contenutoScript" type="text/x-handlebars-template">
+        <div class="card_contenuto">
+          {{{ copertina }}}
+          <ul class="dettagli_contenuto">
+            <li class="titolo_contenuto">{{ titolo }} </li>
+            <li>Titolo originale:  {{ titoloOriginale }} </li>
+            <li>Tipologia: {{ tipologiaContenuto}}</li>
+            <li class="punteggio"> Voto:  {{{ votazione }}}</li>
+            <li>Lingua: {{{ lingua }}} </li>
+            <li class="trama">{{{ trama }}}</li>
           </ul>
-        </script>
-      </ul>
+        </div>
+      </script>
     </div>
-
+    
   </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js" charset="utf-8"></script>

@@ -81,7 +81,7 @@ $(document).ready(function () {
           console.log('Hai cercato risultati per: ' + apiParameters.data.query);
           console.log(apiData.results);
 
-          $('#lista_contenuti .contenuto').remove();
+          $('.contenuti .card_contenuto').remove();
 
           mostraFilmESerieTVda(apiData);
 
@@ -129,12 +129,13 @@ function mostraFilmESerieTVda(apiData) {
         lingua: gestisciLingua(contenuto.original_language),
         votazione: (voto != 'nd') ? gestisci(voto, contenuto) : 'nd',
         tipologiaContenuto: tipoContenuto,
-        copertina : (hasCover(contenuto)) ? gestisciCopertinaPer(contenuto) : 'Nessuna copertina disponibile',
+        copertina : (hasCover(contenuto)) ? gestisciCopertinaPer(contenuto) : "<img class='copertina overlay' src='image-not-found.png' />'",
+        trama: contenuto.overview,
       };
 
       var htmlRisultato = template(data);
 
-      $('#lista_contenuti').append(htmlRisultato);
+      $('.contenuti').append(htmlRisultato);
     }
 
   }
@@ -171,7 +172,7 @@ function gestisciCopertinaPer(contenuto) {
   var dimensione = (contenuto.backdrop_path != null) ? 'w300' : 'w342';
   var urlCopertina = 'https://image.tmdb.org/t/p/' + dimensione + path;
 
-  return "<img src='" + urlCopertina + "' />'";
+  return "<img class='copertina overlay' src='" + urlCopertina + "' />'";
 }
 
 function convertiInScalaDa1a5(voto) {

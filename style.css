@@ -26,30 +26,35 @@
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 100%;
+  height: 100%;
 }
 
 /************************************************/
 /************* OGGETTI RICORRENTI ***************/
 /************************************************/
 
+.fas.fa-star {
+  color: yellow;
+}
+
 /**********************************************/
 /************* SEZIONI DOCUMENTO *************/
 /**********************************************/
 
 body {
-  background: black;
+  background: #161B1D;
 }
 
 #main-container {
   width: 100vw;
 }
 
-/* navBar */
+/* main-container -> navBar */
 
 nav {
   height: 100px;
@@ -65,6 +70,11 @@ nav img.logo {
   height: 100%;
 }
 
+nav .search_area {
+display: flex;
+align-items: center;
+}
+
 nav #inputRicerca, nav #inputRicerca:focus {
   margin-right: 15px;
   padding: 0px 15px;
@@ -76,34 +86,76 @@ nav #inputRicerca, nav #inputRicerca:focus {
 }
 
 nav #bottoneCerca {
-  height: 40px;
-  padding: 0px 10px;
-  background: green;
+  padding: 8px 10px;
+  background: red;
   border-radius: 6px;
+  font-size: 20px;
   color: white;
   cursor: pointer;
+  outline-style: none;
 }
 
-/* content */
+/* main-container -> contenuti */
 
-.contenuti, .contenuti #lista_contenuti {
-  width: 100%;
+.contenuti {
+  width: 90%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.contenuti #lista_contenuti {
-  margin-top: 30px;
-  margin-left: 70px;
+.card_contenuto {
+  position: relative;
+  float: left;
+  height: 480px;
+  width: 320px;
+  overflow: hidden;
+  background: black;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+
 }
 
-.contenuti #lista_contenuti li {
+.card_contenuto .copertina.overlay {
+  height: 100%;
+  transition: height 0.6s ease;
+}
+
+.card_contenuto:hover .copertina.overlay {
+  height: 0px;
+}
+
+.card_contenuto:hover {
+  border: 5px solid white;
+}
+
+.card_contenuto .dettagli_contenuto {
+  height: 100%;
+  padding: 10px 10px 40px 10px;
+  white-space: wrap;
+  overflow-y: auto;
+}
+
+.card_contenuto .dettagli_contenuto .titolo_contenuto {
+  margin-bottom: 20px;
+  font-size: 35px;
+  font-weight: bold;
+  white-space: wrap;
+}
+
+.card_contenuto .dettagli_contenuto li {
   color: white;
-  margin-bottom: 5px;
-}
-
-.contenuti #lista_contenuti .altre_contenuto li {
+  margin-bottom: 10px;
   margin-left: 20px;
+  list-style: none;
 }
 
-.contenuti .bandiera {
-  max-width: 80px;
+.card_contenuto .bandiera {
+  max-width: 20px;
+}
+
+.card_contenuto .trama {
+  margin-bottom: 30px;
 }
